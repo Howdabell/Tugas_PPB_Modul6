@@ -10,6 +10,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MonitoringScreen } from "./src/screens/MonitoringScreen.js";
 import { ControlScreen } from "./src/screens/ControlScreen.js";
 import { LoginScreen } from "./src/screens/LoginScreen.js";
+import { ProfileScreen } from "./src/screens/ProfileScreen.js";
 
 // --- Services ---
 import { assertConfig } from "./src/services/config.js";
@@ -48,14 +49,29 @@ const MainNavigator = () => {
         headerTitleStyle: { fontWeight: "600", fontSize: 18 },
         tabBarActiveTintColor: "#2563eb",
         tabBarInactiveTintColor: "#94a3b8",
+        
+        // 2. UPDATE BAGIAN ICON DI SINI
         tabBarIcon: ({ color, size }) => {
-          const iconName = route.name === "Monitoring" ? "analytics" : "options";
+          let iconName;
+
+          if (route.name === "Monitoring") {
+            iconName = "analytics";
+          } else if (route.name === "Control") {
+            iconName = "options";
+          } else if (route.name === "Profile") {
+            iconName = "person-circle"; // Icon untuk profil
+          }
+
           return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
     >
       <Tab.Screen name="Monitoring" component={MonitoringScreen} />
       <Tab.Screen name="Control" component={ControlScreen} />
+      
+      {/* 3. TAMBAHKAN TAB SCREEN BARU DI SINI */}
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+      
     </Tab.Navigator>
   );
 };
